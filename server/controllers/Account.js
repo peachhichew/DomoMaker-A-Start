@@ -19,7 +19,7 @@ const login = (request, response) => {
   const res = response;
 
   // force cast to strings to cover some security flaws
-  const username = `${req.body.username};`;
+  const username = `${req.body.username}`;
   const password = `${req.body.pass}`;
   console.log("username: ", username);
   console.log("pwd: ", password);
