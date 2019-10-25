@@ -72,6 +72,15 @@ app.set("view engine", "handlebars");
 app.set("views", `${__dirname}/../views`);
 app.use(cookieParser());
 
+// csrf must come aFTER app.use(cookieParser());
+// and app.use(session({.....})) should come BEFORE the router
+app.use(csrf());
+app.use((err, req, res, next) => {
+  if (err.code !== "EBADCSRFTOKEN") return next(err);
+  console.log("Missing CSRF token");
+  return false;
+});
+
 router(app);
 
 app.listen(port, err => {
